@@ -28,11 +28,22 @@
     <string name="board_length_long">Long Board</string>
 
     <string name="product_price">Price: </string>
+    <string name="hint_product_price">Edit Price</string>
+
     <string name="product_name">Product Name: </string>
+    <string name="hint_product_name">Edit Product Name</string>
 
     <string name="product_quantity">Quantity: </string>
+    <string name="hint_product_quantity">Edit Quantity</string>
 
     <string name="supplier_name">Supplier Name: </string>
+    <string name="hint_supplier_name">Edit Supplier Name</string>
+
     <string name="supplier_contact_person">Contact Person: </string>
+    <string name="hint_supplier_contact_person">Edit Contact Person</string>
+
     <string name="supplier_phone_number">Phone#: </string>
+    <string name="hint_supplier_phone_number">Edit Phone Number</string>
+    <string name="enter_product">Enter Product Information</string>
+
 </resources>

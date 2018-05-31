@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
 
+    <color name="black">#000000</color>
+
 
     <!-- Primary color for the editor -->
     <color name="editorColorPrimary">#2D3640</color>
