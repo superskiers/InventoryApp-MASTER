@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for the editor -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+
+
+    <!-- Product Name Label -->
+    <TextView
+        android:text="@string/product_name"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Name (HINT) field -->
+    <EditText
+        android:id="@+id/edit_product_name"
+        android:hint="@string/product_name"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+    <!-- Product Price Label -->
+    <TextView
+        android:text="@string/product_price"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Price (HINT) field -->
+    <EditText
+        android:id="@+id/edit_product_price"
+        android:hint="@string/product_price"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+
+        <!--Board Type/Length Label -->
+        <TextView
+            android:text="@string/board_types"
+            style="@style/CategoryStyle" />
+
+
+            <!-- Board Type/Length drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_board_type"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown"/>
+
+
+    <!-- Product Quantity Label -->
+    <TextView
+        android:text="@string/product_quantity"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Quantity (HINT) field -->
+    <EditText
+        android:id="@+id/edit_quantity_field"
+        android:hint="@string/product_quantity"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+    <!-- Product Supplier Label -->
+    <TextView
+        android:text="@string/supplier_name"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Supplier (HINT) field -->
+    <EditText
+        android:id="@+id/edit_supplier_name"
+        android:hint="@string/supplier_name"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+    <!-- Product Supplier Contact Person Label -->
+    <TextView
+        android:text="@string/supplier_contact_person"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Supplier Contact Person (HINT) field -->
+    <EditText
+        android:id="@+id/edit_supplier_contact_person"
+        android:hint="@string/supplier_contact_person"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+    <!-- Product Supplier Phone# Label -->
+    <TextView
+        android:text="@string/supplier_phone_number"
+        style="@style/CategoryStyle" />
+
+
+    <!-- Product Supplier Phone# (HINT) field -->
+    <EditText
+        android:id="@+id/edit_supplier_phone"
+        android:hint="@string/supplier_phone_number"
+        android:inputType="text"
+        style="@style/EditorFieldStyle" />
+
+
+</LinearLayout>
+
