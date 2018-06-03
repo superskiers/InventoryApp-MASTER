@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 import com.example.superskiers.inventoryapp.data.SurfboardDbHelper;
@@ -89,7 +90,7 @@ public class CatalogActivity extends AppCompatActivity {
             //_id - name - breed - gender - weight
             //In the while loop below, iterate through the rows of the cursor and display
             //the information from each column in this order.
-            displayView.setText("The surfboards tables contains " + cursor.getCount() + " surfboards.\n\n");
+            displayView.setText("The surfboards table contains " + cursor.getCount() + " surfboards.\n\n");
             displayView.append(BoardsEntry._ID + " - " +
                     BoardsEntry.COLUMN_PRODUCT_NAME + " - " +
                     BoardsEntry.COLUMN_PRICE + " - " +
@@ -184,7 +185,8 @@ public class CatalogActivity extends AppCompatActivity {
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                // Do nothing for now
+                Toast notJustYet = Toast.makeText(this, R.string.next_lesson_msg, Toast.LENGTH_LONG);
+                notJustYet.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

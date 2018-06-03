@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,7 +112,7 @@ public class EditorActivity extends AppCompatActivity {
         //Read from the input fields
         //.trim gets rid of extra space or typing after name
         String nameString = mNameEditText.getText().toString().trim();
-        String priceString = mPriceEditText.getText().toString().trim();
+        String priceString = "$" + mPriceEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierString = mSupplierEditText.getText().toString().trim();
         String supplierContactString = mSupplierContactPersonEditText.getText().toString().trim();
@@ -149,6 +150,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
@@ -170,7 +172,8 @@ public class EditorActivity extends AppCompatActivity {
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                // Do nothing for now
+                //For now: DELETE will navigate back to parent activity (CatalogActivity)
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:

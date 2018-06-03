@@ -7,5 +7,7 @@
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="seize_dp">16dp</dimen>
+    <dimen name="eight_dp">8dp</dimen>
+    <dimen name="forty8_dp">48dp</dimen>
 
 </resources>
