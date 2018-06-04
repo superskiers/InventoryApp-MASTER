@@ -24,12 +24,11 @@
             android:id="@+id/heading_enter_product"
             android:layout_below="@+id/activity_editor_image_view"
             android:layout_width="match_parent"
-            android:layout_marginLeft="64dp"
+            android:layout_marginLeft="@dimen/sixty4_dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="@string/enter_product"
-            style="@style/CategoryStyle"
-            />
+            style="@style/CategoryStyle" />
 
 
     <!-- Product Name Label -->
@@ -77,11 +76,8 @@
             style="@style/CategoryStyle" />
 
 
-            <!-- Board Type/Length drop-down spinner -->
-
-
-        <!-- *******************************WHAT IS THE FINAL LAYOUT HEIGHT YOU WANT TO USE?????????????????????????????????? -->
-            <Spinner
+        <!-- Board Type/Length drop-down spinner -->
+        <Spinner
                 android:id="@+id/spinner_board_type"
                 android:layout_below="@id/edit_product_price"
                 android:layout_toRightOf="@id/board_types"
@@ -105,7 +101,7 @@
         android:hint="@string/hint_product_quantity"
         android:layout_below="@id/board_types"
         android:layout_toRightOf="@id/quantity_field_text_view"
-        android:inputType="text"
+        android:inputType="number"
         style="@style/EditorFieldStyle" />
 
 
@@ -154,6 +150,7 @@
 
 
     <!-- Product Supplier Phone# (HINT) field -->
+        <!--inputType is TEXT in order to specify Country and Phone Number (e.g.US 917...)-->
     <EditText
         android:id="@+id/edit_supplier_phone"
         android:layout_below="@id/supplier_contact_text_view"
@@ -162,7 +159,7 @@
         android:inputType="text"
         style="@style/EditorFieldStyle" />
     </RelativeLayout>
-    
+
 
 </ScrollView>
 

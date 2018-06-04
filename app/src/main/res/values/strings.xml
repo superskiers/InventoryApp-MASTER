@@ -9,7 +9,7 @@
     <string name="action_delete_all_entries">Delete All Products</string>
 
     <!-- Title for the activity to add a new product [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_new_product">Add a Product</string>
+    <string name="editor_activity_title_new_product">Add a New Product</string>
 
     <!-- Label for editor menu option to save product and leave editor [CHAR LIMIT=20] -->
     <string name="action_save">Save</string>

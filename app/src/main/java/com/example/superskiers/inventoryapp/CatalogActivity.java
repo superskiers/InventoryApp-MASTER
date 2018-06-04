@@ -54,13 +54,13 @@ public class CatalogActivity extends AppCompatActivity {
 
     //Temporary helper method to display information in the onscreen TextView about the state of
     //the products database.
-
     private void displayDatabaseInfo() {
 
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        //
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
         String[] projection = {
                 BoardsEntry._ID,
                 BoardsEntry.COLUMN_PRODUCT_NAME,
@@ -71,23 +71,23 @@ public class CatalogActivity extends AppCompatActivity {
                 BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON,
                 BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER
         };
-
+        // Perform a query on the surfboards table
         Cursor cursor = db.query(
-                BoardsEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+                BoardsEntry.TABLE_NAME,   //The table to query
+                projection,               //The columns to return
+                null,            //The columns for the WHERE clause
+                null,         //The values for the WHERE clause
+                null,            //Don't group the rows
+                null,             //Don't filter by row groups
+                null,            //Sort order
+                null);             //No limitations
 
         TextView displayView = (TextView) findViewById(R.id.text_view_board);
 
         try {
             //Create a header in the Text View that looks like this:
-            //The pets table contains <number of rows in Cursor> pets.
-            //_id - name - breed - gender - weight
+            //The surfboards table contains <number of rows in Cursor> surfboards.
+            //_id - name - price - board_type - quantity - supplier_name - supplier_contact - supplier_phone#
             //In the while loop below, iterate through the rows of the cursor and display
             //the information from each column in this order.
             displayView.setText("The surfboards table contains " + cursor.getCount() + " surfboards.\n\n");
@@ -124,7 +124,7 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentSupplierContact = cursor.getString(supplierContactPersonColumnIndex);
                 String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
-                //Display the values from each colum of the current row in the cursor
+                //Display the values from each column of the current row in the cursor
                 //in the TextView: text_view_product
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " +
@@ -136,8 +136,8 @@ public class CatalogActivity extends AppCompatActivity {
                         currentSupplierPhone));
             }
         } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
+            //Always close the cursor when you're done reading from it. This releases all its
+            //resources and makes it invalid.
             cursor.close();
         }
     }

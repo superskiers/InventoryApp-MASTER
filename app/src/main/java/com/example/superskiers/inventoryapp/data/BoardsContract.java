@@ -54,7 +54,7 @@ public class BoardsContract {
 
             //Quantity of the product.
 
-            //Type: INTEGER
+            //Type: TEXT
 
             public final static String COLUMN_QUANTITY = "quantity";
 

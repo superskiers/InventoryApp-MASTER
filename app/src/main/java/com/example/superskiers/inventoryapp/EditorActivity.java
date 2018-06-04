@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +18,8 @@ import android.widget.Toast;
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 import com.example.superskiers.inventoryapp.data.SurfboardDbHelper;
 
-/**
- * Allows user to create a new product or edit an existing one.
- */
+
+//Allows user to create a new product or edit an existing one.
 public class EditorActivity extends AppCompatActivity {
 
     //EditText field to enter the name of the surfboard
@@ -68,9 +66,8 @@ public class EditorActivity extends AppCompatActivity {
         setupSpinner();
     }
 
-    /**
-     * Setup the dropdown spinner that allows the user to select the gender of the pet.
-     */
+
+    //Setup the dropdown spinner that allows the user to select the type of board being entered.
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
@@ -139,7 +136,7 @@ public class EditorActivity extends AppCompatActivity {
 
         //Capture the value that's returned by this insert method
         long newRowId = db.insert(BoardsEntry.TABLE_NAME, null, values);
-        //Show a Toas message as to whether info was entered successfully
+        //Show a Toast message as to whether info was entered successfully
         if(newRowId == -1) {
             Toast.makeText(this, "Error with saving product", Toast.LENGTH_SHORT).show();
         }else{
