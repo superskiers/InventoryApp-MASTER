@@ -12,8 +12,6 @@ import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
     public class SurfboardDbHelper extends SQLiteOpenHelper {
 
 
-        public static final String LOG_TAG = SurfboardDbHelper.class.getSimpleName();
-
         //Name of the database file
         private static final String DATABASE_NAME = "surfboards.db";
 

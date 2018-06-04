@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Layout for the editor -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +15,8 @@
             android:id="@+id/activity_editor_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/surfboards_lined_up"/>
+            android:src="@drawable/surfboards_lined_up"
+            android:contentDescription="@string/image_view_content_description" />
 
         <!-- TextView for the Enter Product Page -->
         <TextView
@@ -150,7 +149,7 @@
 
 
     <!-- Product Supplier Phone# (HINT) field -->
-        <!--inputType is TEXT in order to specify Country and Phone Number (e.g.US 917...)-->
+        <!--Phone# input type is text to allow for country (e.g. US +917...)-->
     <EditText
         android:id="@+id/edit_supplier_phone"
         android:layout_below="@id/supplier_contact_text_view"

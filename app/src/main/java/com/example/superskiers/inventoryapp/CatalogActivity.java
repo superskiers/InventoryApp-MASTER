@@ -30,7 +30,7 @@ public class CatalogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_catalog);
 
         // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +44,7 @@ public class CatalogActivity extends AppCompatActivity {
         displayDatabaseInfo();
     }
     //When the activity starts again (after user hits save) the list will refresh with the
-    //new prpduct in the database.
+    //new product in the database.
     @Override
     protected void onStart() {
         super.onStart();
@@ -82,7 +82,7 @@ public class CatalogActivity extends AppCompatActivity {
                 null,            //Sort order
                 null);             //No limitations
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_board);
+        TextView displayView = findViewById(R.id.text_view_board);
 
         try {
             //Create a header in the Text View that looks like this:

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Inventory App</string>
 
+    <!--Content Description for ImageView in Activity_Catalog.xml -->
+    <string name="image_view_content_description">Image of several surfboards lined up together.</string>
 
     <!-- Label for overflow menu option that inserts fake product data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
@@ -17,21 +19,20 @@
     <!-- Label for editor overflow menu option that deletes the current product [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
 
-    <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
-    <string name="product_info">Product Info</string>
+    <!--Label for heading TextView -->
+    <string name="enter_product">Enter Product Information</string>
 
-    <string name="supplier_info">Supplier</string>
+    <!-- Labels for Activity_Catalog.xml, both TextView and EditView-->
+    <string name="product_name">Product Name: </string>
+    <string name="hint_product_name">edit product name</string>
+
+    <string name="product_price">Price: </string>
+    <string name="hint_product_price">edit price (currency is automated)</string>
 
     <string name="board_types">Board Types</string>
     <string name="board_length_not_specified">Not Specified</string>
     <string name="board_length_short">Short Board</string>
     <string name="board_length_long">Long Board</string>
-
-    <string name="product_price">Price: </string>
-    <string name="hint_product_price">edit price (currency is automated)</string>
-
-    <string name="product_name">Product Name: </string>
-    <string name="hint_product_name">edit product name</string>
 
     <string name="product_quantity">Quantity: </string>
     <string name="hint_product_quantity">edit quantity</string>
@@ -44,7 +45,8 @@
 
     <string name="supplier_phone_number">Phone#: </string>
     <string name="hint_supplier_phone_number">edit phone number</string>
-    <string name="enter_product">Enter Product Information</string>
+
+    <!--Toast msg for Delete All Entries-->
     <string name="next_lesson_msg">This will be implemented after Lesson 4</string>
 
 </resources>
