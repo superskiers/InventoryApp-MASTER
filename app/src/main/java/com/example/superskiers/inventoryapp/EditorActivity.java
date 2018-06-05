@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,8 @@ public class EditorActivity extends AppCompatActivity {
     //EditText field to enter the board length type (short or long)
     private Spinner mLengthSpinner;
 
+    //Boolean to check if a product was entered
+    private boolean mNoNewProduct = false;
 
     //Length of the board. A choice between long board, short board or not specified.
     //{@link BoardsEntry#LONG_BOARD}, {@link BoardsEntry#SHORT_BOARD}.
