@@ -90,7 +90,7 @@ public class CatalogActivity extends AppCompatActivity {
             //_id - name - price - board_type - quantity - supplier_name - supplier_contact - supplier_phone#
             //In the while loop below, iterate through the rows of the cursor and display
             //the information from each column in this order.
-            displayView.setText("The surfboards table contains " + cursor.getCount() + " surfboards.\n\n");
+            displayView.setText(getString(R.string.surfboard_table_contains) + cursor.getCount() + getString(R.string.surfboards_header));
             displayView.append(BoardsEntry._ID + " - " +
                     BoardsEntry.COLUMN_PRODUCT_NAME + " - " +
                     BoardsEntry.COLUMN_PRICE + " - " +
