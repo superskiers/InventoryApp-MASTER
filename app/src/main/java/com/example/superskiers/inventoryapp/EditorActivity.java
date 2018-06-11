@@ -1,12 +1,12 @@
 package com.example.superskiers.inventoryapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 import com.example.superskiers.inventoryapp.data.SurfboardDbHelper;
+
 
 
 //Allows user to create a new product or edit an existing one.
@@ -44,9 +45,6 @@ public class EditorActivity extends AppCompatActivity {
     //EditText field to enter the board length type (short or long)
     private Spinner mLengthSpinner;
 
-    //Boolean to check if a product was entered
-    private boolean mNoNewProduct = false;
-
     //Length of the board. A choice between long board, short board or not specified.
     //{@link BoardsEntry#LONG_BOARD}, {@link BoardsEntry#SHORT_BOARD}.
     //{@link BoardsEntry#LENGTH_NOT_SPECIFIED}
@@ -68,7 +66,6 @@ public class EditorActivity extends AppCompatActivity {
 
         setupSpinner();
     }
-
 
     //Setup the dropdown spinner that allows the user to select the type of board being entered.
     private void setupSpinner() {
@@ -106,17 +103,18 @@ public class EditorActivity extends AppCompatActivity {
             }
         });
     }
-
     //Get user input from editor and save new product into database
     private void insertProduct() {
         //Read from the input fields
         //.trim gets rid of extra space or typing after name
         String nameString = mNameEditText.getText().toString().trim();
-        String priceString = "$" + mPriceEditText.getText().toString().trim();
+        String priceString = getString(R.string.dollar_sign) + mPriceEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierString = mSupplierEditText.getText().toString().trim();
         String supplierContactString = mSupplierContactPersonEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
+        if (quantityString.isEmpty())
+            return;
         int quantity = Integer.parseInt(quantityString);
 
 
@@ -137,18 +135,17 @@ public class EditorActivity extends AppCompatActivity {
         values.put(BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON, supplierContactString);
         values.put(BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
 
+
         //Capture the value that's returned by this insert method
         long newRowId = db.insert(BoardsEntry.TABLE_NAME, null, values);
         //Show a Toast message as to whether info was entered successfully
         if(newRowId == -1) {
-            Toast.makeText(this, "Error with saving product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_error_saving), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "Product saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_product_saved) + newRowId, Toast.LENGTH_SHORT).show();
         }
 
-
     }
-
 
 
     @Override
