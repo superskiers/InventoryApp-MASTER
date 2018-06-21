@@ -11,6 +11,7 @@ import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
     //Database helper for Inventory app. Manages database creation and version management.
     public class SurfboardDbHelper extends SQLiteOpenHelper {
 
+        public static final String LOG_TAG = SurfboardDbHelper.class.getSimpleName();
 
         //Name of the database file
         private static final String DATABASE_NAME = "surfboards.db";
@@ -44,9 +45,7 @@ import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
             // Execute the SQL statement
             db.execSQL(SQL_CREATE_SURFBOARDS_TABLE);
 
-
         }
-
 
         //This is called when the database needs to be upgraded.
         @Override

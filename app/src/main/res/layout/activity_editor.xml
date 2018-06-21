@@ -44,7 +44,7 @@
         android:layout_below="@id/heading_enter_product"
         android:layout_toRightOf="@id/product_name_label"
         android:hint="@string/hint_product_name"
-        android:inputType="text"
+        android:inputType="textCapWords"
         style="@style/EditorFieldStyle"/>
 
 
@@ -118,7 +118,7 @@
         android:layout_below="@id/quantity_field_text_view"
         android:layout_toRightOf="@id/supplier_field_text_view"
         android:hint="@string/hint_supplier_name"
-        android:inputType="text"
+        android:inputType="textCapWords"
         style="@style/EditorFieldStyle" />
 
 
@@ -136,7 +136,7 @@
         android:layout_below="@id/supplier_field_text_view"
         android:layout_toRightOf="@id/supplier_contact_text_view"
         android:hint="@string/hint_supplier_contact_person"
-        android:inputType="text"
+        android:inputType="textCapWords"
         style="@style/EditorFieldStyle" />
 
 
@@ -155,7 +155,7 @@
         android:layout_below="@id/supplier_contact_text_view"
         android:layout_toRightOf="@id/supplier_phone_text_view"
         android:hint="@string/hint_supplier_phone_number"
-        android:inputType="text"
+        android:inputType="textCapWords"
         style="@style/EditorFieldStyle" />
     </RelativeLayout>
 

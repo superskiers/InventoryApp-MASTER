@@ -13,6 +13,9 @@
     <!-- Title for the activity to add a new product [CHAR LIMIT=20] -->
     <string name="editor_activity_title_new_product">Add a New Product</string>
 
+    <!--Title for the activity to edit an existing product-->
+    <string name="editor_activity_title_edit_product">Edit Product</string>
+
     <!-- Label for editor menu option to save product and leave editor [CHAR LIMIT=20] -->
     <string name="action_save">Save</string>
 
@@ -48,5 +51,33 @@
 
     <!--Toast msg for Delete All Entries-->
     <string name="next_lesson_msg">This will be implemented after Lesson 4</string>
+    <string name="toast_error_saving">Error with saving product</string>
+    <string name="toast_product_saved">Product saved with row id:</string>
+    <string name="toast_field_empty">Please fill out all fields OR  Press back button.</string>
+    <string name="dollar_sign">$</string>
+    <string name="surfboard_table_contains">The surfboards table contains</string>
+    <string name="surfboards_header">surfboards.</string>
 
+
+    <!-- Title text for the empty view, which describes the empty stock room image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">It\'s empty looking, don\'t you think?...</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a product [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding a product</string>
+
+    <string name="unknown_price">Price Not Specified</string>
+
+    <string name="editor_insert_product_failed">Insert product failed.</string>
+
+    <string name="editor_insert_product_successful">Insert product successful</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this product?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="editor_delete_product_failed">Error with updating product</string>
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="editor_update_product_failed">Error with updating product</string>
+    <string name="editor_update_product_successful">Product updated</string>
 </resources>

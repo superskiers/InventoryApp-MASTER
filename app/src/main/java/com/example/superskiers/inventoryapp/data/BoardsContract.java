@@ -1,5 +1,7 @@
 package com.example.superskiers.inventoryapp.data;
 
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 
@@ -12,80 +14,122 @@ public class BoardsContract {
         // give it an empty constructor.
         private BoardsContract() {}
 
+    //String constant set up with the Content_Provider
+    //The "Content authority" is a name for the entire content provider, similar to the
+    //relationship between a domain name and its website.  A convenient string to use for the
+    //content authority is the package name for the app, which is guaranteed to be unique on the
+    //device.
+    public static final String CONTENT_AUTHORITY = "com.example.superskiers.inventoryapp";
 
-        //Inner class that defines constant values for the surfboards database table.
-        //Each entry in the table represents a single surfboard.
-        public static final class BoardsEntry implements BaseColumns {
+    //Concatenate the CONTENT_AUTHORITY constant with scheme
+    //Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
+    //the content provider.
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-            //Name of database table for InventoryApp
-            public final static String TABLE_NAME = "surfboards";
-
-
-            //Unique ID number for the product (only for use in the database table).
-
-            //Type: INTEGER
-
-            public final static String _ID = BaseColumns._ID;
-
-
-            //Name of the specific board/product.
-
-            //Type: TEXT
-
-            public final static String COLUMN_PRODUCT_NAME ="name";
+    //String Constant stores the path for each of the tables to be appended
+    //Possible path (appended to base content URI for possible URI's)
+    //For instance, content://com.example.superskiers.inventoryapp/surfboards/ is a valid path for
+    //looking at surfboard data. content://com.example.superskiers.inventoryapp/shape/ will fail,
+    //as the ContentProvider hasn't been given any information on what to do with "shape".
+    public static final String PATH_BOARDS = "surfboards";
 
 
-            //Price of the board.
-
-            //Type: TEXT
-
-            public final static String COLUMN_PRICE = "price";
+    //Inner class that defines constant values for the surfboards database table.
+    //Each entry in the table represents a single surfboard (product).
+    public static final class BoardsEntry implements BaseColumns {
 
 
-            //Length of board.
-
-            //The only possible values are {@link #BOARD_TYPE_NOT_SPECIFIED}, {@link #BOARD_TYPE_SHORT},
-            //or {@link #BOARD_TYPE_LONG}.
-
-            //Type: INTEGER
-
-            public final static String COLUMN_BOARD_TYPE = "board_type";
+        //The content URI to access the product data in the provider
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_BOARDS);
 
 
-            //Quantity of the product.
+        //The MIME type of the {@link #CONTENT_URI} for a list of products.
+        public static final String CONTENT_LIST_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BOARDS;
 
-            //Type: TEXT
-
-            public final static String COLUMN_QUANTITY = "quantity";
-
-
-            //Supplier Name of the product.
-
-            //Type: TEXT
-
-            public final static String COLUMN_SUPPLIER_NAME = "supplier";
+        //The MIME type of the {@link #CONTENT_URI} for a single product.
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BOARDS;
 
 
-            //Contact Person at Supplier.
-
-            //Type: TEXT
-
-            public final static String COLUMN_SUPPLIER_CONTACT_PERSON = "contact_person";
+        //Name of database table for InventoryApp
+        public final static String TABLE_NAME = "surfboards";
 
 
-            //Phone Number of the Supplier.
+        //Unique ID number for the product (only for use in the database table).
 
-            //Type: TEXT
+        //Type: INTEGER
 
-            public final static String COLUMN_SUPPLIER_PHONE_NUMBER = "supplier_phone";
+        public final static String _ID = BaseColumns._ID;
 
 
-            //Possible values for the type/length of board.
+        //Name of the specific surfboard/product.
 
-            public static final int BOARD_TYPE_NOT_SPECIFIED = 0;
-            public static final int BOARD_TYPE_SHORT = 1;
-            public static final int BOARD_TYPE_LONG = 2;
+        //Type: TEXT
+
+        public final static String COLUMN_PRODUCT_NAME = "name";
+
+
+        //Price of the surfboard.
+
+        //Type: TEXT
+
+        public final static String COLUMN_PRICE = "price";
+
+
+        //Length of surfboard.
+
+        //The only possible values are {@link #BOARD_TYPE_NOT_SPECIFIED}, {@link #BOARD_TYPE_SHORT},
+        //or {@link #BOARD_TYPE_LONG}.
+
+        //Type: INTEGER
+
+        public final static String COLUMN_BOARD_TYPE = "board_type";
+
+
+        //Quantity of the product.
+
+        //Type: TEXT
+
+        public final static String COLUMN_QUANTITY = "quantity";
+
+
+        //Supplier Name of the product.
+
+        //Type: TEXT
+
+        public final static String COLUMN_SUPPLIER_NAME = "supplier";
+
+
+        //Contact Person at Supplier.
+
+        //Type: TEXT
+
+        public final static String COLUMN_SUPPLIER_CONTACT_PERSON = "contact_person";
+
+
+        //Phone Number of the Supplier.
+
+        //Type: TEXT
+
+        public final static String COLUMN_SUPPLIER_PHONE_NUMBER = "supplier_phone";
+
+
+        //Possible values for the type/length of surfboard.
+
+        public static final int BOARD_TYPE_NOT_SPECIFIED = 0;
+        public static final int BOARD_TYPE_SHORT = 1;
+        public static final int BOARD_TYPE_LONG = 2;
+
+        //Returns whether or not the given gender is {@link #BOARD_TYPE_NOT_SPECIFIED},
+        //{@link #BOARD_TYPE_SHORT}, {@link #BOARD_TYPE_LONG}
+        public static boolean isLengthValid(int lengthOfBoard) {
+            if (lengthOfBoard == BOARD_TYPE_NOT_SPECIFIED || lengthOfBoard == BOARD_TYPE_SHORT
+                    || lengthOfBoard == BOARD_TYPE_LONG) {
+                return true;
+            }
+            return false;
         }
-
     }
+}
 

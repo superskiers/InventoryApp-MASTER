@@ -31,6 +31,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
-    </application>
+    <provider
+        android:name=".data.SurfboardProvider"
+        android:authorities="com.example.superskiers.inventoryapp"
+        android:exported="false" />
+</application>
 
 </manifest>

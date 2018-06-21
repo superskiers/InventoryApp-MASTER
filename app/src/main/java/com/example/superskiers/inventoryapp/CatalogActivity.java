@@ -1,9 +1,13 @@
 package com.example.superskiers.inventoryapp;
 
+import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,17 +15,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.AdapterView;
+import android.widget.ListView;
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
-import com.example.superskiers.inventoryapp.data.SurfboardDbHelper;
 
+//Displays the list of products that were entered and stored in the app.
+public class CatalogActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
-public class CatalogActivity extends AppCompatActivity {
+    //Integer Loader constant
+    private static final int BOARD_LOADER = 0;
 
-    //Instance variable for the database Helper
-    private SurfboardDbHelper mDbHelper;
+    //Create an instance of that Class
+    BoardCursorAdapter mCursorAdapter;
 
 
     @Override
@@ -39,129 +45,69 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        //Instantiate helper and pass in the context
-        mDbHelper = new SurfboardDbHelper(this);
-        displayDatabaseInfo();
-    }
-    //When the activity starts again (after user hits save) the list will refresh with the
-    //new product in the database.
-    @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
-    }
+        //Find the ListView which will be populated with the product data
+        ListView boardListView = findViewById(R.id.list);
+
+        //Find and set empty view on the ListView, so that it only shows
+        //when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        boardListView.setEmptyView(emptyView);
 
 
-    //Temporary helper method to display information in the onscreen TextView about the state of
-    //the products database.
-    private void displayDatabaseInfo() {
+        //Setup an Adapter to create a list item for each row of product data in the Cursor.
+        //There is no product data yet (until the loader finishes) so pass in null for the Cursor.
+        mCursorAdapter = new BoardCursorAdapter(this, null);
+        boardListView.setAdapter(mCursorAdapter);
 
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        //Setup on item click listener
+        boardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Create new intent to go to {@link EditorActivity}
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                BoardsEntry._ID,
-                BoardsEntry.COLUMN_PRODUCT_NAME,
-                BoardsEntry.COLUMN_PRICE,
-                BoardsEntry.COLUMN_BOARD_TYPE,
-                BoardsEntry.COLUMN_QUANTITY,
-                BoardsEntry.COLUMN_SUPPLIER_NAME,
-                BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON,
-                BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER
-        };
-        // Perform a query on the surfboards table
-        Cursor cursor = db.query(
-                BoardsEntry.TABLE_NAME,   //The table to query
-                projection,               //The columns to return
-                null,            //The columns for the WHERE clause
-                null,         //The values for the WHERE clause
-                null,            //Don't group the rows
-                null,             //Don't filter by row groups
-                null,            //Sort order
-                null);             //No limitations
+                //Form the content URI that represents the specific product that was clicked on
+                //by appending the "id" (passed as input to this method) onto the
+                //{@link BoardsEntry#CONTENT_URI}.
+                Uri currentProductUri = ContentUris.withAppendedId(BoardsEntry.CONTENT_URI, id);
 
-        TextView displayView = findViewById(R.id.text_view_board);
+                //Set the URI on the data field of the intent
+                intent.setData(currentProductUri);
 
-        try {
-            //Create a header in the Text View that looks like this:
-            //The surfboards table contains <number of rows in Cursor> surfboards.
-            //_id - name - price - board_type - quantity - supplier_name - supplier_contact - supplier_phone#
-            //In the while loop below, iterate through the rows of the cursor and display
-            //the information from each column in this order.
-            displayView.setText(getString(R.string.surfboard_table_contains) + cursor.getCount() + getString(R.string.surfboards_header));
-            displayView.append(BoardsEntry._ID + " - " +
-                    BoardsEntry.COLUMN_PRODUCT_NAME + " - " +
-                    BoardsEntry.COLUMN_PRICE + " - " +
-                    BoardsEntry.COLUMN_BOARD_TYPE + " - " +
-                    BoardsEntry.COLUMN_QUANTITY + " - " +
-                    BoardsEntry.COLUMN_SUPPLIER_NAME + " - " +
-                    BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON + " - " +
-                    BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
-
-            //Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(BoardsEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_PRODUCT_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_PRICE);
-            int boardTypeColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_BOARD_TYPE);
-            int quantityColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_QUANTITY);
-            int supplierColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_SUPPLIER_NAME);
-            int supplierContactPersonColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON);
-            int supplierPhoneColumnIndex = cursor.getColumnIndex(BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER);
-
-
-            //Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()){
-                //Use that index to extract the String or Int value of the word
-                //at the current row the cursor is on.
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                String currentPrice = cursor.getString(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                int currentBoardType = cursor.getInt(boardTypeColumnIndex);
-                String currentSupplier = cursor.getString(supplierColumnIndex);
-                String currentSupplierContact = cursor.getString(supplierContactPersonColumnIndex);
-                String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
-
-                //Display the values from each column of the current row in the cursor
-                //in the TextView: text_view_product
-                displayView.append(("\n" + currentID + " - " +
-                        currentName + " - " +
-                        currentPrice + " - " +
-                        currentBoardType + " - " +
-                        currentQuantity + " - " +
-                        currentSupplier + " - " +
-                        currentSupplierContact + " - " +
-                        currentSupplierPhone));
+                //Launch the {@link EditorActivity} to display the data for the current product
+                startActivity(intent);
             }
-        } finally {
-            //Always close the cursor when you're done reading from it. This releases all its
-            //resources and makes it invalid.
-            cursor.close();
-        }
+        });
+        //Kick off the loader
+        getLoaderManager().initLoader(BOARD_LOADER, null, this);
     }
 
     private void insertBoard(){
-        //Gets the data repository in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        //Create a content values object
+        //Create a content values object where column names are the keys,
+        //and the FireWire board attributes are the values.
         ContentValues values = new ContentValues();
 
         //Use content values put method to store each of the key value pairs
         values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire");
         values.put(BoardsEntry.COLUMN_PRICE, "$689.00");
         values.put(BoardsEntry.COLUMN_BOARD_TYPE, BoardsEntry.BOARD_TYPE_NOT_SPECIFIED);
-        values.put(BoardsEntry.COLUMN_QUANTITY, "$689.00");
+        values.put(BoardsEntry.COLUMN_QUANTITY, "12");
         values.put(BoardsEntry.COLUMN_SUPPLIER_NAME, "Global Industries");
         values.put(BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON, "Gabriel Medina");
         values.put(BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "US: +1-917-732-5401");
 
-        //Capture the value that's returned by this insert method
-        long newRowId = db.insert(BoardsEntry.TABLE_NAME, null, values);
-        //This Log can catch any potential errors
-        Log.v("CatalogActivity", "New row ID " + newRowId);
+        //Insert a new row for FireWire into the provider using the ContentResolver
+        //Use the {@link BoardsEntry#CONTENT_URI} to indicate that we want to insert
+        //into the surfboards database table.
+        //Receive the new content URI that will allow us to access FireWire's data in the future.
+       Uri newUri = getContentResolver().insert(BoardsEntry.CONTENT_URI, values);
+
+    }
+
+    //Helper method to delete ALL products in the database.
+    private void deleteAllProducts(){
+        int rowsDeleted = getContentResolver().delete(BoardsEntry.CONTENT_URI, null, null);
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from surfboard database");
 
     }
 
@@ -181,14 +127,45 @@ public class CatalogActivity extends AppCompatActivity {
             case R.id.action_insert_dummy_data:
                 //Call both methods when option is selected
                 insertBoard();
-                displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                Toast notJustYet = Toast.makeText(this, R.string.next_lesson_msg, Toast.LENGTH_LONG);
-                notJustYet.show();
+                deleteAllProducts();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //Called when a new Loader needs to be created.
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        //Define a projection that specifies which columns from the database
+        //you will actually use after this query.
+        String[] projection = {
+                BoardsEntry._ID,
+                BoardsEntry.COLUMN_PRODUCT_NAME,
+                BoardsEntry.COLUMN_PRICE };
+        //This loader will execute the ContentProvider's query method on a background thread.
+        return new CursorLoader(this,    //Parent activity context
+                BoardsEntry.CONTENT_URI,        //Provider content URI to query
+                projection,                     //Columns to include in the resulting Cursor
+                null,                  //No selection clause
+                null,               //No selection arguments
+                null );                //Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        //Update {@link BoardCursorAdapter} with this new cursor containing updated product data.
+        mCursorAdapter.swapCursor(data);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //Callback called when the data needs to be deleted.
+        mCursorAdapter.swapCursor(null);
+
+    }
+
 }
