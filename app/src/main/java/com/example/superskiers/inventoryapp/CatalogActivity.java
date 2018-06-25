@@ -11,11 +11,14 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 
@@ -34,6 +37,7 @@ public class CatalogActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -82,30 +86,30 @@ public class CatalogActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(BOARD_LOADER, null, this);
     }
 
-    private void insertBoard(){
+    private void insertBoard() {
         //Create a content values object where column names are the keys,
         //and the FireWire board attributes are the values.
         ContentValues values = new ContentValues();
 
         //Use content values put method to store each of the key value pairs
         values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire");
-        values.put(BoardsEntry.COLUMN_PRICE, "$689.00");
+        values.put(BoardsEntry.COLUMN_PRICE, "689.99");
         values.put(BoardsEntry.COLUMN_BOARD_TYPE, BoardsEntry.BOARD_TYPE_NOT_SPECIFIED);
         values.put(BoardsEntry.COLUMN_QUANTITY, "12");
         values.put(BoardsEntry.COLUMN_SUPPLIER_NAME, "Global Industries");
         values.put(BoardsEntry.COLUMN_SUPPLIER_CONTACT_PERSON, "Gabriel Medina");
-        values.put(BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "US: +1-917-732-5401");
+        values.put(BoardsEntry.COLUMN_SUPPLIER_PHONE_NUMBER, "1-917-732-5401");
 
         //Insert a new row for FireWire into the provider using the ContentResolver
         //Use the {@link BoardsEntry#CONTENT_URI} to indicate that we want to insert
         //into the surfboards database table.
         //Receive the new content URI that will allow us to access FireWire's data in the future.
-       Uri newUri = getContentResolver().insert(BoardsEntry.CONTENT_URI, values);
+        Uri newUri = getContentResolver().insert(BoardsEntry.CONTENT_URI, values);
 
     }
 
     //Helper method to delete ALL products in the database.
-    private void deleteAllProducts(){
+    private void deleteAllProducts() {
         int rowsDeleted = getContentResolver().delete(BoardsEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from surfboard database");
 
@@ -144,14 +148,15 @@ public class CatalogActivity extends AppCompatActivity implements
         String[] projection = {
                 BoardsEntry._ID,
                 BoardsEntry.COLUMN_PRODUCT_NAME,
-                BoardsEntry.COLUMN_PRICE };
+                BoardsEntry.COLUMN_PRICE,
+                BoardsEntry.COLUMN_QUANTITY};
         //This loader will execute the ContentProvider's query method on a background thread.
         return new CursorLoader(this,    //Parent activity context
                 BoardsEntry.CONTENT_URI,        //Provider content URI to query
                 projection,                     //Columns to include in the resulting Cursor
                 null,                  //No selection clause
                 null,               //No selection arguments
-                null );                //Default sort order
+                null);                //Default sort order
     }
 
     @Override
@@ -167,5 +172,4 @@ public class CatalogActivity extends AppCompatActivity implements
         mCursorAdapter.swapCursor(null);
 
     }
-
 }

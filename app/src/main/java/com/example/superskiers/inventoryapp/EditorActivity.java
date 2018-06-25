@@ -19,11 +19,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
+
 
 
 //Allows user to create a new product or edit an existing one.
@@ -65,6 +68,14 @@ public class EditorActivity extends AppCompatActivity implements
     //Boolean that keeps track of whether the surfboard/product has been edited.
     private boolean mSurfboardHasChanged = false;
 
+    //ImageButton to start the phone dialer.
+    private ImageButton phoneDialer;
+
+    private EditText quantityEditText;
+    private ImageButton incrementButton, decrementButton;
+    private String stock;
+    public int newStock = 0;
+
     //OnTouchListener that listens for any user touches on a View, implying that they are
     //modifying the view and we change the mSurfboardHasChanged boolean to true.
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -81,10 +92,25 @@ public class EditorActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        quantityEditText = findViewById(R.id.edit_quantity_field);
+        decrementButton = findViewById(R.id.decrement);
+
         //Examine the intent that was used to launch this activity, in order
         //to figure out if we're creating a new product entry or editing an existing one
         Intent intent = getIntent();
         mCurrentSurfboardUri = intent.getData();
+
+        ImageButton phoneDialer = findViewById(R.id.phone_dialer);
+
+        phoneDialer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText phoneNumber = findViewById(R.id.edit_supplier_phone);
+                Intent dialerIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber.getText().toString().trim()));
+                startActivity(dialerIntent);
+            }
+        });
+
 
         //If the intent DOES NOT contain a product content URI, then we know that we
         //are creating a new product.
@@ -125,7 +151,23 @@ public class EditorActivity extends AppCompatActivity implements
         mLengthSpinner.setOnTouchListener(mTouchListener);
 
         setupSpinner();
+
+        decrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stock = quantityEditText.getText().toString().trim();
+                if (!TextUtils.isEmpty(stock)) {
+                    newStock = Integer.parseInt(stock);
+                    quantityEditText.setText(String.valueOf(newStock - 1));
+                }
+                decrementButton(v);
+                if(newStock == 0){
+                    return;
+                }
+            }
+        });
     }
+
 
     //Setup the dropdown spinner that allows the user to select the type of board being entered.
     private void setupSpinner() {
@@ -372,7 +414,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
-            String price = cursor.getString(priceColumnIndex);
+            double price = cursor.getDouble(priceColumnIndex);
             String supplier = cursor.getString(supplierColumnIndex);
             String supplierContact = cursor.getString(supplierContactColumnIndex);
             String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
@@ -381,7 +423,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
-            mPriceEditText.setText(price);
+            mPriceEditText.setText(Double.toString(price));
             mQuantityEditText.setText(Integer.toString(quantity));
             mSupplierEditText.setText(supplier);
             mSupplierContactPersonEditText.setText(supplierContact);
@@ -500,4 +542,20 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
+
+    public void decrementButton(View view) {
+        if(newStock != 0)
+            newStock--;
+        displayQuantity();
+    }
+    public void displayQuantity() {
+        stock = quantityEditText.getText().toString().trim();
+        quantityEditText.setText(String.valueOf(newStock));
+    }
+
+//    public void orderMore() {
+//        Intent intent = new Intent(Intent.ACTION_DIAL);
+//        intent.setData(Uri.parse(mSupplierPhoneEditText.getText().toString().trim()));
+//        startActivity(intent);
+
 }
