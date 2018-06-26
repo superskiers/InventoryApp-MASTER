@@ -28,6 +28,10 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
      */
     public class BoardCursorAdapter extends CursorAdapter {
 
+    public String stock;
+    public int newStock;
+
+
 
     /**
      * Constructs a new {@link BoardCursorAdapter}.
@@ -69,7 +73,7 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
         //Find the fields to populate in inflated layout
         TextView nameTextView = view.findViewById(R.id.name);
         TextView retailPriceTextView = view.findViewById(R.id.retail_price);
-        TextView stockEditTextView = view.findViewById(R.id.text_view_quantity);
+        final TextView stockEditTextView = view.findViewById(R.id.text_view_quantity);
         ImageButton decrementButton = view.findViewById(R.id.decrement);
 
         //Find the columns of product attributes that we're interested in.
@@ -96,26 +100,29 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
         decrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri productUri = ContentUris.withAppendedId(BoardsContract.BoardsEntry.CONTENT_URI, stockColumnIndex);
-                reduceProductQuantity(context, productUri, boardStock);
+                stock = stockEditTextView.getText().toString().trim();
+                if (!TextUtils.isEmpty(stock)) {
+                    newStock = Integer.parseInt(stock);
+                    stockEditTextView.setText(String.valueOf(newStock - 1));
+                }
+                decrementButton(v);
+                if (newStock == 0) {
+                    return;
+                }
             }
+
+            public void decrementButton(View view) {
+                if (newStock != 0)
+                    newStock--;
+                displayQuantity();
+            }
+
+            public void displayQuantity() {
+                stock = stockEditTextView.getText().toString().trim();
+                stockEditTextView.setText(String.valueOf(newStock));
+            }
+
         });
     }
-    private void reduceProductQuantity(Context context, Uri productUri, int currentQuantityInStock){
-            int updatedStock = (currentQuantityInStock >= 1) ? currentQuantityInStock - 1 : 0;
-            if(currentQuantityInStock == 0) {
-                Toast.makeText(context.getApplicationContext(), R.string.toast_out_of_stock, Toast.LENGTH_SHORT).show();
-            }
-        ContentValues contentValues = new ContentValues();
-            contentValues.put(BoardsContract.BoardsEntry.COLUMN_QUANTITY, updatedStock);
-            int rowsUpdated = context.getContentResolver().update(productUri, contentValues, null, null);
-            if(rowsUpdated > 0) {
-                Log.i(TAG, context.getString(R.string.sold_product_confirm));
-            } else {
-                Toast.makeText(context.getApplicationContext(), R.string.toast_out_of_stock, Toast.LENGTH_SHORT).show();
-                Log.e(TAG, context.getString(R.string.error_updating_stock));
-            }
-      }
 }
-
 

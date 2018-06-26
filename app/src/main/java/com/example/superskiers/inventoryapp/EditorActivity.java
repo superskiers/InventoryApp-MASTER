@@ -68,11 +68,9 @@ public class EditorActivity extends AppCompatActivity implements
     //Boolean that keeps track of whether the surfboard/product has been edited.
     private boolean mSurfboardHasChanged = false;
 
-    //ImageButton to start the phone dialer.
-    private ImageButton phoneDialer;
 
     private EditText quantityEditText;
-    private ImageButton incrementButton, decrementButton;
+    private ImageButton decrementButton;
     private String stock;
     public int newStock = 0;
 
