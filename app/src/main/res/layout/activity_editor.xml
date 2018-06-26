@@ -116,7 +116,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/eight_dp"
             android:layout_below="@+id/spinner_board_type"
-            android:onClick="decrement"
             android:src="@drawable/ic_remove_black_24dp"
             android:text="-" />
 

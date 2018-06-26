@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 
 //Displays the list of products that were entered and stored in the app.
@@ -78,12 +80,15 @@ public class CatalogActivity extends AppCompatActivity implements
                 //Set the URI on the data field of the intent
                 intent.setData(currentProductUri);
 
+                Toast.makeText(CatalogActivity.this, R.string.update_database_catalogactivity, Toast.LENGTH_SHORT).show();
+
+
                 //Launch the {@link EditorActivity} to display the data for the current product
                 startActivity(intent);
             }
         });
         //Kick off the loader
-        getLoaderManager().initLoader(BOARD_LOADER, null, this);
+       getLoaderManager().initLoader(BOARD_LOADER, null, this);
     }
 
     private void insertBoard() {
@@ -92,7 +97,7 @@ public class CatalogActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
 
         //Use content values put method to store each of the key value pairs
-        values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire");
+        values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire Everyday Go Fish");
         values.put(BoardsEntry.COLUMN_PRICE, "689.99");
         values.put(BoardsEntry.COLUMN_BOARD_TYPE, BoardsEntry.BOARD_TYPE_NOT_SPECIFIED);
         values.put(BoardsEntry.COLUMN_QUANTITY, "12");

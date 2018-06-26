@@ -5,9 +5,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:padding="@dimen/activity_margin">
 
     <LinearLayout
+        android:id="@+id/board_and_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -26,10 +28,40 @@
                 android:fontFamily="sans-serif"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="#AEB6BD"  />
+
+        <TextView
+            android:id="@+id/current_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="44dp"
+            android:text="@string/current_stock"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"  />
+
+
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/text_view_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/board_and_price"
+        android:layout_marginTop="44dp"
+        android:layout_marginRight="200dp"
+        android:inputType="number"
+        android:textAppearance="?android:textAppearanceMedium" />
 
 
+        <ImageButton
+            android:id="@+id/decrement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_remove_black_24dp"
+            android:text="-" />
 
 
 </RelativeLayout>
