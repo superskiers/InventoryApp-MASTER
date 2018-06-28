@@ -121,14 +121,11 @@ public class BoardsContract {
         public static final int BOARD_TYPE_SHORT = 1;
         public static final int BOARD_TYPE_LONG = 2;
 
-        //Returns whether or not the given gender is {@link #BOARD_TYPE_NOT_SPECIFIED},
+        //Returns whether or not the given Board Type is {@link #BOARD_TYPE_NOT_SPECIFIED},
         //{@link #BOARD_TYPE_SHORT}, {@link #BOARD_TYPE_LONG}
         public static boolean isLengthValid(int lengthOfBoard) {
-            if (lengthOfBoard == BOARD_TYPE_NOT_SPECIFIED || lengthOfBoard == BOARD_TYPE_SHORT
-                    || lengthOfBoard == BOARD_TYPE_LONG) {
-                return true;
-            }
-            return false;
+            return lengthOfBoard == BOARD_TYPE_NOT_SPECIFIED || lengthOfBoard == BOARD_TYPE_SHORT
+                    || lengthOfBoard == BOARD_TYPE_LONG;
         }
     }
 }

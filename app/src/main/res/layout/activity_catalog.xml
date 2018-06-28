@@ -19,6 +19,7 @@
         android:layout_marginTop="@dimen/forty8_dp"
         android:layout_centerHorizontal="true">
 
+        <!--ImageView of empty stock room-->
         <ImageView
             android:id="@+id/empty_stock_room"
             android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/empty_stock_room"/>
 
+        <!--Title text in Empty View-->
         <TextView
             android:id="@+id/empty_title_text"
             android:layout_width="wrap_content"
@@ -33,10 +35,11 @@
             android:layout_below="@+id/empty_stock_room"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-medium"
-            android:paddingTop="16dp"
+            android:paddingTop="@dimen/seize_dp"
             android:text="@string/empty_view_title_text"
             android:textAppearance="?android:textAppearanceMedium"/>
 
+        <!--Subtitle text in Empty View-->
         <TextView
             android:id="@+id/empty_subtitle_text"
             android:layout_width="wrap_content"
@@ -44,10 +47,11 @@
             android:layout_below="@+id/empty_title_text"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:paddingTop="8dp"
+            android:paddingTop="@dimen/eight_dp"
             android:text="@string/empty_view_subtitle_text"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#A2AAB0"/>
+
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

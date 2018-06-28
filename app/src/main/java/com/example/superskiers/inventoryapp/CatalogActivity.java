@@ -11,14 +11,11 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -80,7 +77,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 //Set the URI on the data field of the intent
                 intent.setData(currentProductUri);
 
-                Toast.makeText(CatalogActivity.this, R.string.update_database_catalogactivity, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CatalogActivity.this, R.string.update_database_catalog_activity, Toast.LENGTH_SHORT).show();
 
 
                 //Launch the {@link EditorActivity} to display the data for the current product
@@ -97,7 +94,7 @@ public class CatalogActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
 
         //Use content values put method to store each of the key value pairs
-        values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire Everyday Go Fish");
+        values.put(BoardsEntry.COLUMN_PRODUCT_NAME, "Firewire Everyday Go Fish 5'6\"");
         values.put(BoardsEntry.COLUMN_PRICE, "689.99");
         values.put(BoardsEntry.COLUMN_BOARD_TYPE, BoardsEntry.BOARD_TYPE_NOT_SPECIFIED);
         values.put(BoardsEntry.COLUMN_QUANTITY, "12");

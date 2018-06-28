@@ -193,8 +193,8 @@ public class SurfboardProvider extends ContentProvider {
             }
         }
 
-        //If the {@link BoardsEntry#COLUMN_PET_GENDER} key is present,
-        //check that the gender value is valid.
+        //If the {@link BoardsEntry#COLUMN_BOARD_TYPE} key is present,
+        //check that the length value is valid.
         if (values.containsKey(BoardsEntry.COLUMN_BOARD_TYPE)) {
             Integer length = values.getAsInteger(BoardsEntry.COLUMN_BOARD_TYPE);
             if (length == null || !BoardsEntry.isLengthValid(length)) {

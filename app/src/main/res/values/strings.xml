@@ -50,7 +50,6 @@
     <string name="hint_supplier_phone_number">edit phone number</string>
 
     <!--Toast msg for Delete All Entries-->
-    <string name="next_lesson_msg">This will be implemented after Lesson 4</string>
     <string name="toast_error_saving">Error with saving product</string>
     <string name="toast_product_saved">Product saved with row id:</string>
     <string name="toast_field_empty">Please fill out all fields OR  Press back button.</string>
@@ -70,6 +69,8 @@
     <string name="editor_insert_product_failed">Insert product failed.</string>
 
     <string name="editor_insert_product_successful">Insert product successful</string>
+
+    <!--Toast Msgs for discarding changes-->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit</string>
     <string name="discard">Discard</string>
     <string name="keep_editing">Keep Editing</string>
@@ -81,8 +82,14 @@
     <string name="editor_update_product_failed">Error with updating product</string>
     <string name="editor_update_product_successful">Product updated</string>
     <string name="toast_out_of_stock">Out of Stock</string>
-    <string name="error_updating_stock">Error in updating quantity.</string>
-    <string name="sold_product_confirm">SOLD!</string>
+
+
     <string name="current_stock">Current stock:</string>
-    <string name="update_database_catalogactivity">Update the database</string>
+    <string name="update_database_catalog_activity">Go to update the database</string>
+
+    <!--Toast msg confirming reduction of current quantity-->
+    <string name="quantity_reduced">Quantity reduced</string>
+
+    <!--Toast msg to order more from supplier-->
+    <string name="order_more_from_supplier">Let\'s order some more</string>
 </resources>

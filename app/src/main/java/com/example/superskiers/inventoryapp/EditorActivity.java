@@ -68,9 +68,13 @@ public class EditorActivity extends AppCompatActivity implements
     //Boolean that keeps track of whether the surfboard/product has been edited.
     private boolean mSurfboardHasChanged = false;
 
-
+    //EditText field to be updated
     private EditText quantityEditText;
+
+    //ImageButton to reduce quantity
     private ImageButton decrementButton;
+
+    //The following two variables are used to store values of quantity
     private String stock;
     public int newStock = 0;
 
@@ -105,6 +109,7 @@ public class EditorActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 EditText phoneNumber = findViewById(R.id.edit_supplier_phone);
                 Intent dialerIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber.getText().toString().trim()));
+                Toast.makeText(EditorActivity.this, getString(R.string.order_more_from_supplier),Toast.LENGTH_SHORT).show();
                 startActivity(dialerIntent);
             }
         });
@@ -540,20 +545,17 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
-
+    //Decrement to reduce the amount of product
     public void decrementButton(View view) {
         if(newStock != 0)
             newStock--;
         displayQuantity();
     }
+    //Displays the updated quantity of products
     public void displayQuantity() {
         stock = quantityEditText.getText().toString().trim();
         quantityEditText.setText(String.valueOf(newStock));
     }
 
-//    public void orderMore() {
-//        Intent intent = new Intent(Intent.ACTION_DIAL);
-//        intent.setData(Uri.parse(mSupplierPhoneEditText.getText().toString().trim()));
-//        startActivity(intent);
 
 }

@@ -1,35 +1,34 @@
 package com.example.superskiers.inventoryapp;
 
+
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import static android.content.ContentValues.TAG;
 
 import com.example.superskiers.inventoryapp.data.BoardsContract;
 
 
-/**
-     * {@link BoardCursorAdapter} is an adapter for a list or grid view
-     * that uses a {@link Cursor} of surfboard data as its data source. This adapter knows
-     * how to create list items for each row of surfboard data in the {@link Cursor}.
-     */
-    public class BoardCursorAdapter extends CursorAdapter {
 
-    public String stock;
-    public int newStock;
+/**
+ * {@link BoardCursorAdapter} is an adapter for a list or grid view
+ * that uses a {@link Cursor} of surfboard data as its data source. This adapter knows
+ * how to create list items for each row of surfboard data in the {@link Cursor}.
+ */
+public class BoardCursorAdapter extends CursorAdapter {
+
+    //Variables used to identify current stock/quantity
+    private String stock;
+    private int newStock;
 
 
 
@@ -80,11 +79,14 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
         int nameColumnIndex = cursor.getColumnIndex(BoardsContract.BoardsEntry.COLUMN_PRODUCT_NAME);
         int priceColumnIndex = cursor.getColumnIndex(BoardsContract.BoardsEntry.COLUMN_PRICE);
         final int stockColumnIndex = cursor.getColumnIndex(BoardsContract.BoardsEntry.COLUMN_QUANTITY);
+        final int selectedProductId = cursor.getColumnIndex(BoardsContract.BoardsEntry._ID);
+
 
         //Read the surfboards attributes from the Cursor for the current product
         String boardName = cursor.getString(nameColumnIndex);
         String boardPrice = "$" + cursor.getString(priceColumnIndex);
-        final int boardStock = cursor.getInt(stockColumnIndex);
+        final int quantityInStock = cursor.getInt(stockColumnIndex);
+        final int productId = cursor.getInt(selectedProductId);
 
         //If the surfboard price is an empty string or null, then use some default text
         //that says "Unknown Price", so the TextView isn't blank.
@@ -95,15 +97,34 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
         //Update the TextViews with the attributes for the current product
         nameTextView.setText(boardName);
         retailPriceTextView.setText(String.valueOf(boardPrice));
-        stockEditTextView.setText(String.valueOf(boardStock));
+        stockEditTextView.setText(String.valueOf(quantityInStock));
 
+        //Decrement button set-up to reduce quantity of stock
         decrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(quantityInStock > 0) {
+                    int updatedQuantity = quantityInStock -1;
+                    //Get the Uri to update the quantityInStock
+                    Uri quantityUri = ContentUris.withAppendedId(BoardsContract.BoardsEntry.CONTENT_URI, productId);
+
+                    ContentValues values = new ContentValues();
+                    //Update the new value for quantity in stock
+                    values.put(BoardsContract.BoardsEntry.COLUMN_QUANTITY, updatedQuantity);
+                    int rowsUpdated = context.getContentResolver().update(quantityUri, values, null, null);
+
+                    if((rowsUpdated > 0)) {
+                        Toast.makeText(context, context.getString(R.string.quantity_reduced),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
                 stock = stockEditTextView.getText().toString().trim();
                 if (!TextUtils.isEmpty(stock)) {
                     newStock = Integer.parseInt(stock);
                     stockEditTextView.setText(String.valueOf(newStock - 1));
+
+
                 }
                 decrementButton(v);
                 if (newStock == 0) {
@@ -125,4 +146,3 @@ import com.example.superskiers.inventoryapp.data.BoardsContract;
         });
     }
 }
-

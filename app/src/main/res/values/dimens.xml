@@ -11,5 +11,8 @@
     <dimen name="seize_dp">16dp</dimen>
     <dimen name="forty8_dp">48dp</dimen>
     <dimen name="sixty4_dp">64dp</dimen>
+    <dimen name="forty4_dp">44dp</dimen>
+    <dimen name="twoHund_dp">200dp</dimen>
+    <dimen name="sixty5_dp">65dp</dimen>
 
 </resources>
