@@ -92,4 +92,5 @@
 
     <!--Toast msg to order more from supplier-->
     <string name="order_more_from_supplier">Let\'s order some more</string>
+    <string name="toast_fill_all_fields">Please fill in all fields</string>
 </resources>

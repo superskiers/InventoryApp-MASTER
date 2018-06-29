@@ -74,6 +74,9 @@ public class EditorActivity extends AppCompatActivity implements
     //ImageButton to reduce quantity
     private ImageButton decrementButton;
 
+    //ImageButton to increase quantity
+    private ImageButton incrementButton;
+
     //The following two variables are used to store values of quantity
     private String stock;
     public int newStock = 0;
@@ -96,6 +99,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         quantityEditText = findViewById(R.id.edit_quantity_field);
         decrementButton = findViewById(R.id.decrement);
+        incrementButton = findViewById(R.id.increment);
 
         //Examine the intent that was used to launch this activity, in order
         //to figure out if we're creating a new product entry or editing an existing one
@@ -166,6 +170,16 @@ public class EditorActivity extends AppCompatActivity implements
                 decrementButton(v);
                 if(newStock == 0){
                     return;
+                }
+            }
+        });
+        incrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stock = quantityEditText.getText().toString().trim();
+                if (!TextUtils.isEmpty(stock)) {
+                    newStock = Integer.parseInt(stock);
+                    quantityEditText.setText(String.valueOf(newStock + 1));
                 }
             }
         });
@@ -327,23 +341,23 @@ public class EditorActivity extends AppCompatActivity implements
                 // activity which is the {@link CatalogActivity}
                 if (!mSurfboardHasChanged) {
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
-                return true;
-        }
-        //Otherwise if there are unsaved changes, setup a dialog to warn the user.
-        //Create a click listener to handle the user confirming that
-        //changes should be discarded.
-        DialogInterface.OnClickListener discardButtonClickListener =
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //User clicked "Discard" button, navigate to parent activity
-                        NavUtils.navigateUpFromSameTask(EditorActivity.this);
-                    }
-            };
+                    return true;
+                }
+                //Otherwise if there are unsaved changes, setup a dialog to warn the user.
+                //Create a click listener to handle the user confirming that
+                //changes should be discarded.
+                DialogInterface.OnClickListener discardButtonClickListener =
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //User clicked "Discard" button, navigate to parent activity
+                                NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                            }
+                        };
 
-            //Show a dialog that notifies the user they have unsaved changes
-            showUnsavedChangesDialog(discardButtonClickListener);
-            return true;
+                //Show a dialog that notifies the user they have unsaved changes
+                showUnsavedChangesDialog(discardButtonClickListener);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -357,21 +371,21 @@ public class EditorActivity extends AppCompatActivity implements
         if(!mSurfboardHasChanged) {
             super.onBackPressed();
             return;
-    }
+        }
 
-    //Otherwise if there are unsaved changes, setup a dialog to warn the user.
-    //Create a click listener to handle the user confirming that changes should be discarded
-    DialogInterface.OnClickListener discardButtonClickListener =
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //User clicked "Discard" button, close the current activity
-                    finish();
-                }
-            };
+        //Otherwise if there are unsaved changes, setup a dialog to warn the user.
+        //Create a click listener to handle the user confirming that changes should be discarded
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //User clicked "Discard" button, close the current activity
+                        finish();
+                    }
+                };
         //Show dialog that there are unsaved changes
         showUnsavedChangesDialog(discardButtonClickListener);
-}
+    }
 
     //Called when a new Loader needs to be created.
     @Override
@@ -399,7 +413,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-    //Bail early if the cursor is null or there is less then 1 row in the cursor
+        //Bail early if the cursor is null or there is less then 1 row in the cursor
         if (cursor == null || cursor.getCount() < 1) {
             return;
         }
@@ -549,6 +563,11 @@ public class EditorActivity extends AppCompatActivity implements
     public void decrementButton(View view) {
         if(newStock != 0)
             newStock--;
+        displayQuantity();
+    }
+    //Decrement to reduce the amount of product
+    public void incrementButton(View view) {
+            newStock++;
         displayQuantity();
     }
     //Displays the updated quantity of products

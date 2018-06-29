@@ -90,8 +90,6 @@
             <TextView
                 android:id="@+id/quantity_field_text_view"
                 style="@style/CategoryStyle"
-                android:layout_alignStart="@+id/heading_enter_product"
-                android:layout_alignLeft="@id/decrement"
                 android:layout_below="@+id/spinner_board_type"
                 android:text="@string/product_quantity" />
 
@@ -99,10 +97,10 @@
         <!-- Product Quantity (HINT) field -->
             <EditText
                 android:id="@+id/edit_quantity_field"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@id/edit_supplier_contact_person"
-                android:layout_alignLeft="@id/quantity_field_text_view"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/eight_dp"
+                android:layout_toRightOf="@id/quantity_field_text_view"
                 android:layout_below="@+id/spinner_board_type"
                 android:hint="@string/hint_product_quantity"
                 android:inputType="number"
@@ -116,9 +114,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/eight_dp"
             android:layout_below="@+id/spinner_board_type"
+            android:layout_toRightOf="@id/edit_quantity_field"
             android:src="@drawable/ic_remove_black_24dp"
             android:text="-" />
 
+        <!--Decrement of Quantity in Stock Button -->
+        <ImageButton
+            android:id="@+id/increment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/eight_dp"
+            android:layout_below="@+id/spinner_board_type"
+            android:layout_toRightOf="@id/decrement"
+            android:src="@drawable/ic_add"
+            android:text="+" />
 
         <!-- Product Supplier Label -->
         <TextView
