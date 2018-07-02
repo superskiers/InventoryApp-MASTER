@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!-- Empty view for the list -->
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/empty_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_centerInParent="true">
 
     <ImageView
         android:id="@+id/empty_stock_room_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/empty_stock_room"/>
+        android:src="@drawable/empty_stock_room" />
 
     <TextView
         android:id="@+id/empty_title_text"
@@ -24,7 +22,7 @@
         android:fontFamily="sans-serif-medium"
         android:paddingTop="@dimen/seize_dp"
         android:text="@string/empty_view_title_text"
-        android:textAppearance="?android:textAppearanceMedium"/>
+        android:textAppearance="?android:textAppearanceMedium" />
 
     <TextView
         android:id="@+id/empty_subtitle_text"
@@ -36,5 +34,5 @@
         android:paddingTop="@dimen/eight_dp"
         android:text="@string/empty_view_subtitle_text"
         android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#A2AAB0"/>
+        android:textColor="#A2AAB0" />
 </RelativeLayout>

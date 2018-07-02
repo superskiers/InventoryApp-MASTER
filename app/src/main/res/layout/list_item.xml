@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!-- Layout for a single list item in the list of surfboards -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
@@ -14,56 +12,51 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="#2B3D4D"  />
-
-            <TextView
-                android:id="@+id/retail_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="#AEB6BD"  />
-
-            <TextView
-                android:id="@+id/current_stock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/forty4_dp"
-                android:text="@string/current_stock"
-                android:fontFamily="sans-serif-medium"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="#2B3D4D"  />
-
-    </LinearLayout>
-
         <TextView
-            android:id="@+id/text_view_quantity"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/board_and_price"
-            android:layout_marginTop="@dimen/forty4_dp"
-            android:layout_marginRight="@dimen/twoHund_dp"
-            android:inputType="number"
-            android:textAppearance="?android:textAppearanceMedium" />
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D" />
 
+        <TextView
+            android:id="@+id/retail_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="#AEB6BD" />
 
-        <ImageButton
-            android:id="@+id/decrement"
-            android:layout_width="@dimen/sixty5_dp"
-            android:layout_height="@dimen/sixty5_dp"
+        <TextView
+            android:id="@+id/current_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:adjustViewBounds="false"
-            android:focusable="true"
-            android:background="@drawable/sale_button"
-            android:text="-" />
+            android:layout_marginRight="@dimen/forty4_dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/current_stock"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D" />
+    </LinearLayout>
 
+    <TextView
+        android:id="@+id/text_view_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/twoHund_dp"
+        android:layout_marginTop="@dimen/forty4_dp"
+        android:layout_toRightOf="@id/board_and_price"
+        android:inputType="number"
+        android:textAppearance="?android:textAppearanceMedium" />
 
-
+    <ImageButton
+        android:id="@+id/decrement"
+        android:layout_width="@dimen/sixty5_dp"
+        android:layout_height="@dimen/sixty5_dp"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="false"
+        android:background="@drawable/sale_button"
+        android:focusable="true"
+        android:text="-" />
 </RelativeLayout>

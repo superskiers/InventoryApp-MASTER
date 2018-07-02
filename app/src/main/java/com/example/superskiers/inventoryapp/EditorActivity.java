@@ -26,8 +26,6 @@ import android.widget.Toast;
 
 import com.example.superskiers.inventoryapp.data.BoardsContract.BoardsEntry;
 
-
-
 //Allows user to create a new product or edit an existing one.
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -80,7 +78,6 @@ public class EditorActivity extends AppCompatActivity implements
     private String stock;
     public int newStock = 0;
 
-
     //OnTouchListener that listens for any user touches on a View, implying that they are
     //modifying the view and we change the mSurfboardHasChanged boolean to true.
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -90,7 +87,6 @@ public class EditorActivity extends AppCompatActivity implements
             return false;
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +110,10 @@ public class EditorActivity extends AppCompatActivity implements
                 EditText phoneNumber = findViewById(R.id.edit_supplier_phone);
                 Intent dialerIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber.getText().toString().trim()));
                 Toast.makeText(EditorActivity.this, getString(R.string.order_more_from_supplier), Toast.LENGTH_SHORT).show();
-                startActivity(dialerIntent);
+                if (dialerIntent.resolveActivity(getPackageManager()) != null)
+                    startActivity(dialerIntent);
             }
         });
-
-
         //If the intent DOES NOT contain a product content URI, then we know that we
         //are creating a new product.
         if (mCurrentSurfboardUri == null) {
@@ -136,7 +131,6 @@ public class EditorActivity extends AppCompatActivity implements
             //the current values in the editor
             getLoaderManager().initLoader(EXISTING_SURFBOARD_LOADER, null, this);
         }
-
         // Find all relevant views that we will need to read user input from
         mNameEditText = findViewById(R.id.edit_product_name);
         mPriceEditText = findViewById(R.id.edit_product_price);
@@ -145,7 +139,6 @@ public class EditorActivity extends AppCompatActivity implements
         mSupplierContactPersonEditText = findViewById(R.id.edit_supplier_contact_person);
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
         mLengthSpinner = findViewById(R.id.spinner_board_type);
-
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving.
@@ -186,7 +179,6 @@ public class EditorActivity extends AppCompatActivity implements
             }
         });
     }
-
 
     //Setup the dropdown spinner that allows the user to select the type of board being entered.
     private void setupSpinner() {
@@ -236,7 +228,6 @@ public class EditorActivity extends AppCompatActivity implements
         String supplierContactString = mSupplierContactPersonEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
 
-
         //Create a content values object
         ContentValues values = new ContentValues();
 
@@ -270,6 +261,7 @@ public class EditorActivity extends AppCompatActivity implements
             } else {
                 //If statement to indicated to User the info was saved but there were empty fields.
                 if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierString) ||
+                        TextUtils.isEmpty(priceString) || mLength == BoardsEntry.BOARD_TYPE_NOT_SPECIFIED ||
                         TextUtils.isEmpty(supplierContactString) || TextUtils.isEmpty(supplierPhoneString)) {
                     Toast.makeText(this, R.string.toast_empty_fields_editor_activity, Toast.LENGTH_LONG).show();
                 } else
@@ -277,6 +269,9 @@ public class EditorActivity extends AppCompatActivity implements
                     Toast.makeText(this, getString(R.string.editor_insert_product_successful),
                             Toast.LENGTH_SHORT).show();
             }
+            //Save and exit
+            finish();
+
         } else {
             //Otherwise this is an EXISTING product, so update the product with content URI: mCurrentSurfboardUri
             //and pass in the new ContentValues. Pass in null for the selection and selection args
@@ -294,9 +289,9 @@ public class EditorActivity extends AppCompatActivity implements
                 Toast.makeText(this, getString(R.string.editor_update_product_successful),
                         Toast.LENGTH_SHORT).show();
             }
+            finish();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -327,8 +322,6 @@ public class EditorActivity extends AppCompatActivity implements
             case R.id.action_save:
                 //Save product to the database
                 saveSurfboard();
-                //Exit activity
-                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -354,15 +347,12 @@ public class EditorActivity extends AppCompatActivity implements
                                 NavUtils.navigateUpFromSameTask(EditorActivity.this);
                             }
                         };
-
                 //Show a dialog that notifies the user they have unsaved changes
                 showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 
     //This method is called when the back button is pressed
     @Override
@@ -372,7 +362,6 @@ public class EditorActivity extends AppCompatActivity implements
             super.onBackPressed();
             return;
         }
-
         //Otherwise if there are unsaved changes, setup a dialog to warn the user.
         //Create a click listener to handle the user confirming that changes should be discarded
         DialogInterface.OnClickListener discardButtonClickListener =
@@ -527,7 +516,6 @@ public class EditorActivity extends AppCompatActivity implements
                 }
             }
         });
-
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -555,7 +543,6 @@ public class EditorActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
-
         // Close the activity
         finish();
     }
@@ -567,7 +554,7 @@ public class EditorActivity extends AppCompatActivity implements
         displayQuantity();
     }
 
-    //Decrement to reduce the amount of product
+    //Increment to increase the amount of product
     public void incrementButton(View view) {
         newStock++;
         displayQuantity();

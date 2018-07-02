@@ -1,119 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!-- Layout for the editor -->
+<?xml version="1.0" encoding="utf-8"?><!-- Layout for the editor -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content">
 
         <!--ImageView for the top of the Enter Product Page -->
         <ImageView
             android:id="@+id/activity_editor_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/surfboards_lined_up"
-            android:contentDescription="@string/image_view_content_description" />
+            android:contentDescription="@string/image_view_content_description"
+            android:src="@drawable/surfboards_lined_up" />
 
         <!-- TextView for the Enter Product Page -->
         <TextView
             android:id="@+id/heading_enter_product"
-            android:layout_below="@+id/activity_editor_image_view"
+            style="@style/CategoryStyle"
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/sixty4_dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_below="@+id/activity_editor_image_view"
+            android:layout_marginLeft="@dimen/sixty4_dp"
             android:text="@string/enter_product"
-            style="@style/CategoryStyle" />
-
+            android:textColor="@color/black" />
 
         <!-- Product Name Label -->
         <TextView
             android:id="@+id/product_name_label"
+            style="@style/CategoryStyle"
             android:layout_below="@+id/heading_enter_product"
-            android:text="@string/product_name"
-            style="@style/CategoryStyle"/>
-
+            android:text="@string/product_name" />
 
         <!-- Product Name (HINT) field -->
         <EditText
             android:id="@+id/edit_product_name"
+            style="@style/EditorFieldStyle"
             android:layout_below="@id/heading_enter_product"
             android:layout_toRightOf="@id/product_name_label"
             android:hint="@string/hint_product_name"
-            android:inputType="textCapWords"
-            style="@style/EditorFieldStyle"/>
-
+            android:inputType="textCapWords" />
 
         <!-- Product Price Label -->
         <TextView
             android:id="@+id/product_price_tv"
+            style="@style/CategoryStyle"
             android:layout_below="@id/edit_product_name"
-            android:text="@string/product_price"
-            style="@style/CategoryStyle"/>
-
+            android:text="@string/product_price" />
 
         <!-- Product Price (HINT) field -->
         <EditText
             android:id="@+id/edit_product_price"
+            style="@style/EditorFieldStyle"
             android:layout_below="@id/product_name_label"
             android:layout_toRightOf="@id/product_price_tv"
             android:hint="@string/hint_product_price"
-            android:inputType="numberDecimal"
-            style="@style/EditorFieldStyle"/>
-
-
+            android:inputType="numberDecimal" />
 
         <!--Board Type/Length Label -->
         <TextView
             android:id="@+id/board_types"
-            android:text="@string/board_types"
+            style="@style/CategoryStyle"
             android:layout_below="@id/product_price_tv"
-            style="@style/CategoryStyle" />
-
+            android:text="@string/board_types" />
 
         <!-- Board Type/Length drop-down spinner -->
         <Spinner
-                android:id="@+id/spinner_board_type"
-                android:layout_below="@id/edit_product_price"
-                android:layout_toRightOf="@id/board_types"
-                android:layout_height="@dimen/forty8_dp"
-                android:layout_width="wrap_content"
-                android:paddingRight="@dimen/seize_dp"
-                android:spinnerMode="dropdown"/>
-
+            android:id="@+id/spinner_board_type"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/forty8_dp"
+            android:layout_below="@id/edit_product_price"
+            android:layout_toRightOf="@id/board_types"
+            android:paddingRight="@dimen/seize_dp"
+            android:spinnerMode="dropdown" />
 
         <!-- Product Quantity Label -->
-            <TextView
-                android:id="@+id/quantity_field_text_view"
-                style="@style/CategoryStyle"
-                android:layout_below="@+id/spinner_board_type"
-                android:text="@string/product_quantity" />
-
+        <TextView
+            android:id="@+id/quantity_field_text_view"
+            style="@style/CategoryStyle"
+            android:layout_below="@+id/spinner_board_type"
+            android:text="@string/product_quantity" />
 
         <!-- Product Quantity (HINT) field -->
-            <EditText
-                android:id="@+id/edit_quantity_field"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="@dimen/eight_dp"
-                android:layout_toRightOf="@id/quantity_field_text_view"
-                android:layout_below="@+id/spinner_board_type"
-                android:hint="@string/hint_product_quantity"
-                android:inputType="number"
-                android:textAppearance="?android:textAppearanceMedium" />
-
+        <EditText
+            android:id="@+id/edit_quantity_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_board_type"
+            android:layout_marginLeft="@dimen/eight_dp"
+            android:layout_toRightOf="@id/quantity_field_text_view"
+            android:hint="@string/hint_product_quantity"
+            android:inputType="number"
+            android:textAppearance="?android:textAppearanceMedium" />
 
         <!--Decrement of Quantity in Stock Button -->
         <ImageButton
             android:id="@+id/decrement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/eight_dp"
             android:layout_below="@+id/spinner_board_type"
+            android:layout_marginLeft="@dimen/eight_dp"
             android:layout_toRightOf="@id/edit_quantity_field"
             android:src="@drawable/ic_remove_black_24dp"
             android:text="-" />
@@ -123,8 +110,8 @@
             android:id="@+id/increment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/eight_dp"
             android:layout_below="@+id/spinner_board_type"
+            android:layout_marginLeft="@dimen/eight_dp"
             android:layout_toRightOf="@id/decrement"
             android:src="@drawable/ic_add"
             android:text="+" />
@@ -132,69 +119,60 @@
         <!-- Product Supplier Label -->
         <TextView
             android:id="@+id/supplier_field_text_view"
-            android:text="@string/supplier_name"
+            style="@style/CategoryStyle"
             android:layout_below="@id/quantity_field_text_view"
-            style="@style/CategoryStyle" />
-
+            android:text="@string/supplier_name" />
 
         <!-- Product Supplier (HINT) field -->
         <EditText
             android:id="@+id/edit_supplier_name"
+            style="@style/EditorFieldStyle"
             android:layout_below="@id/quantity_field_text_view"
             android:layout_toRightOf="@id/supplier_field_text_view"
             android:hint="@string/hint_supplier_name"
-            android:inputType="textCapWords"
-            style="@style/EditorFieldStyle" />
-
+            android:inputType="textCapWords" />
 
         <!-- Product Supplier Contact Person Label -->
         <TextView
             android:id="@+id/supplier_contact_text_view"
-            android:text="@string/supplier_contact_person"
+            style="@style/CategoryStyle"
             android:layout_below="@id/supplier_field_text_view"
-            style="@style/CategoryStyle" />
-
+            android:text="@string/supplier_contact_person" />
 
         <!-- Product Supplier Contact Person (HINT) field -->
         <EditText
             android:id="@+id/edit_supplier_contact_person"
+            style="@style/EditorFieldStyle"
             android:layout_below="@id/supplier_field_text_view"
             android:layout_toRightOf="@id/supplier_contact_text_view"
             android:hint="@string/hint_supplier_contact_person"
-            android:inputType="textCapWords"
-            style="@style/EditorFieldStyle" />
+            android:inputType="textCapWords" />
 
         <!--Phone Dialer Icon -->
         <ImageButton
             android:id="@+id/phone_dialer"
-            android:layout_below="@id/supplier_contact_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/supplier_contact_text_view"
             android:layout_marginLeft="@dimen/eight_dp"
-            android:src="@drawable/ic_phone_black_24dp"/>
-
+            android:src="@drawable/ic_phone_black_24dp" />
 
         <!-- Product Supplier Phone# Label -->
         <TextView
             android:id="@+id/supplier_phone_text_view"
+            style="@style/CategoryStyle"
             android:layout_below="@id/supplier_contact_text_view"
             android:layout_toRightOf="@id/phone_dialer"
-            android:text="@string/supplier_phone_number"
-            style="@style/CategoryStyle" />
-
+            android:text="@string/supplier_phone_number" />
 
         <!-- Product Supplier Phone# (HINT) field -->
         <EditText
             android:id="@+id/edit_supplier_phone"
+            style="@style/EditorFieldStyle"
             android:layout_below="@id/supplier_contact_text_view"
             android:layout_toRightOf="@id/supplier_phone_text_view"
             android:hint="@string/hint_supplier_phone_number"
-            android:inputType="phone"
-            style="@style/EditorFieldStyle" />
-
-
+            android:inputType="phone" />
     </RelativeLayout>
-
-
 </ScrollView>
 

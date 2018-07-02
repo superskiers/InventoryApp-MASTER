@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 
 //BoardsContract defines the Schema of our database
 //API Contract for the Inventory app.
-public class BoardsContract {
+public final class BoardsContract {
 
 
         // To prevent someone from accidentally instantiating the contract class,

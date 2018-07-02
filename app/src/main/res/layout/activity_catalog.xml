@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,8 +15,8 @@
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/forty8_dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/forty8_dp">
 
         <!--ImageView of empty stock room-->
         <ImageView
@@ -25,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/empty_stock_room"/>
+            android:src="@drawable/empty_stock_room" />
 
         <!--Title text in Empty View-->
         <TextView
@@ -37,7 +36,7 @@
             android:fontFamily="sans-serif-medium"
             android:paddingTop="@dimen/seize_dp"
             android:text="@string/empty_view_title_text"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:textAppearance="?android:textAppearanceMedium" />
 
         <!--Subtitle text in Empty View-->
         <TextView
@@ -50,8 +49,7 @@
             android:paddingTop="@dimen/eight_dp"
             android:text="@string/empty_view_subtitle_text"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#A2AAB0"/>
-
+            android:textColor="#A2AAB0" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -61,6 +59,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add"/>
+        android:src="@drawable/ic_add" />
 </RelativeLayout>
 
