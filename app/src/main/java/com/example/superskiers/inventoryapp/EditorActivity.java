@@ -271,7 +271,7 @@ public class EditorActivity extends AppCompatActivity implements
                 //If statement to indicated to User the info was saved but there were empty fields.
                 if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierString) ||
                         TextUtils.isEmpty(supplierContactString) || TextUtils.isEmpty(supplierPhoneString)) {
-                    Toast.makeText(this, "Saved. \nBut don't forget the empty fields.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.toast_empty_fields_editor_activity, Toast.LENGTH_LONG).show();
                 } else
                     //Otherwise, the insertion was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_insert_product_successful),
