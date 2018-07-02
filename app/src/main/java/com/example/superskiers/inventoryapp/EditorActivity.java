@@ -19,7 +19,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -81,6 +80,7 @@ public class EditorActivity extends AppCompatActivity implements
     private String stock;
     public int newStock = 0;
 
+
     //OnTouchListener that listens for any user touches on a View, implying that they are
     //modifying the view and we change the mSurfboardHasChanged boolean to true.
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -113,7 +113,7 @@ public class EditorActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 EditText phoneNumber = findViewById(R.id.edit_supplier_phone);
                 Intent dialerIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber.getText().toString().trim()));
-                Toast.makeText(EditorActivity.this, getString(R.string.order_more_from_supplier),Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditorActivity.this, getString(R.string.order_more_from_supplier), Toast.LENGTH_SHORT).show();
                 startActivity(dialerIntent);
             }
         });
@@ -168,7 +168,7 @@ public class EditorActivity extends AppCompatActivity implements
                     quantityEditText.setText(String.valueOf(newStock - 1));
                 }
                 decrementButton(v);
-                if(newStock == 0){
+                if (newStock == 0) {
                     return;
                 }
             }
@@ -181,6 +181,8 @@ public class EditorActivity extends AppCompatActivity implements
                     newStock = Integer.parseInt(stock);
                     quantityEditText.setText(String.valueOf(newStock + 1));
                 }
+                incrementButton(v);
+                return;
             }
         });
     }
@@ -234,14 +236,6 @@ public class EditorActivity extends AppCompatActivity implements
         String supplierContactString = mSupplierContactPersonEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
 
-        //If statement used to ensure all fields are filled in. If info is missing, will NOT save entry.
-        if (mCurrentSurfboardUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierString) &&
-                TextUtils.isEmpty(supplierContactString) && TextUtils.isEmpty(supplierPhoneString) &&
-                mLength == BoardsEntry.BOARD_TYPE_NOT_SPECIFIED) {
-            return;
-        }
 
         //Create a content values object
         ContentValues values = new ContentValues();
@@ -258,6 +252,7 @@ public class EditorActivity extends AppCompatActivity implements
         int quantity = 0;
         if (!TextUtils.isEmpty(quantityString)) {
             quantity = Integer.parseInt(quantityString);
+
         }
         values.put(BoardsEntry.COLUMN_QUANTITY, quantity);
 
@@ -273,9 +268,14 @@ public class EditorActivity extends AppCompatActivity implements
                 Toast.makeText(this, getString(R.string.editor_insert_product_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                //Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_product_successful),
-                        Toast.LENGTH_SHORT).show();
+                //If statement to indicated to User the info was saved but there were empty fields.
+                if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierString) ||
+                        TextUtils.isEmpty(supplierContactString) || TextUtils.isEmpty(supplierPhoneString)) {
+                    Toast.makeText(this, "Saved. \nBut don't forget the empty fields.", Toast.LENGTH_LONG).show();
+                } else
+                    //Otherwise, the insertion was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_insert_product_successful),
+                            Toast.LENGTH_SHORT).show();
             }
         } else {
             //Otherwise this is an EXISTING product, so update the product with content URI: mCurrentSurfboardUri
@@ -285,7 +285,7 @@ public class EditorActivity extends AppCompatActivity implements
             int rowsAffected = getContentResolver().update(mCurrentSurfboardUri, values, null, null);
 
             //Show a toast message depending on whether or not the update was successful.
-            if(rowsAffected == 0) {
+            if (rowsAffected == 0) {
                 //If no rows were affected, then there was an error with the update.
                 Toast.makeText(this, getString(R.string.editor_update_product_failed),
                         Toast.LENGTH_SHORT).show();
@@ -368,7 +368,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         //If the product hasn't changed, continue with handling back button press
-        if(!mSurfboardHasChanged) {
+        if (!mSurfboardHasChanged) {
             super.onBackPressed();
             return;
         }
@@ -408,7 +408,7 @@ public class EditorActivity extends AppCompatActivity implements
                 projection,                     //Columns to include in the resulting Cursor
                 null,                  //No selection clause
                 null,               //No selection arguments
-                null );                //Default sort order
+                null);                //Default sort order
     }
 
     @Override
@@ -559,22 +559,23 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
+
     //Decrement to reduce the amount of product
     public void decrementButton(View view) {
-        if(newStock != 0)
+        if (newStock != 0)
             newStock--;
         displayQuantity();
     }
+
     //Decrement to reduce the amount of product
     public void incrementButton(View view) {
-            newStock++;
+        newStock++;
         displayQuantity();
     }
+
     //Displays the updated quantity of products
     public void displayQuantity() {
         stock = quantityEditText.getText().toString().trim();
         quantityEditText.setText(String.valueOf(newStock));
     }
-
-
 }
