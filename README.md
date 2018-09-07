@@ -8,3 +8,5 @@ This InventoryApp is my final submission for Udacity's InventoryApp, Stage 2. Th
     Updating information based on user input
     Creating intents to other apps using stored information
 
+
+![](InventoryAppScreenShots.png)
